@@ -19,7 +19,7 @@
 #include "lwm/sys/sys.h"
 #include "lwm/nwk/nwk.h"
 
-
+#define ARRAY_LENGTH 50
 // This is a temporary hack to check the result of snprintf and print an
 // error
 /*
@@ -48,14 +48,16 @@ class ApioGeneral : public ApioClass {
     int numberkey=0;
     int j=0;
 
-    void setup();
-    void loop();
-  private:
-    void decodeIncomingString(String incoming);
-    void select();
-    
- 
+    int flag; //flag which manages the logic of the select
+    int x=0;//is used to keep track the running property:value in the loop
 
+    void setup(int address);
+    void loop();
+    void apioSend(String toSend);
+    void decodeIncomingString(String incoming);
+  private:
+    
+    void select();
 };
 
 extern ApioGeneral General;
