@@ -20,7 +20,7 @@
 
 static bool nwkDataReqBusy= false;
 static void appDataConf(NWK_DataReq_t *req);
-static bool lwmReceive(NWK_DataInd_t *ind);
+static bool apioReceive(NWK_DataInd_t *ind);
 
 ApioDongle Dongle;
 
@@ -44,7 +44,7 @@ void ApioDongle::setup() {
   //Figure out how to use EEPROM
   //ApioClass::setup();
   ApioClass::nwkSetRadio(0,0x01,0x1a);
-  ApioClass::nwkListen(1, lwmReceive);
+  ApioClass::nwkListen(1, apioReceive);
   wdt_enable(WDTO_8S);
 }
 
@@ -64,7 +64,7 @@ void ApioDongle::loop() {
         break;
         
       case('l'):
-        ApioDongle::lwmSend(deviceAddr,content); 
+        ApioDongle::apioSend(deviceAddr,content); 
         break;
     }
     Serial.println(content);        
@@ -102,7 +102,7 @@ void ApioDongle::xbeeSend(String devAddr, String toSend)
 }
 
 
-void ApioDongle::lwmSend(String devAddr,String toSend) 
+void ApioDongle::apioSend(String devAddr,String toSend) 
 {
 
   int len = toSend.length();
@@ -127,7 +127,7 @@ void ApioDongle::lwmSend(String devAddr,String toSend)
 
 }
 
-static bool lwmReceive(NWK_DataInd_t *ind) 
+static bool apioReceive(NWK_DataInd_t *ind) 
 { 
   
   int message_size=ind->size;

@@ -40,33 +40,22 @@ class ApioGeneral : public ApioClass {
     ApioGeneral();
     ~ApioGeneral();
 
+    String deviceAddr;
+    String property; // variables that are to be processed in the running loop
+    String value;  // variables that are to be processed in the running loop
+    String propertyArray[ARRAY_LENGTH];
+    String valueArray[ARRAY_LENGTH];
+    int numberkey=0;
+    int j=0;
+
     void setup();
     void loop();
-
+  private:
+    void decodeIncomingString(String incoming);
+    void select();
     
+ 
 
-
-
-
-
-
-    uint32_t getWallTime();
-    uint32_t getCpuTime();
-    uint32_t getSleepTime();
-
-    // Schedule a sleep that lasts until now + ms. The optional bitlash
-    // command is executed after the sleep and then free()'d. A previous
-    // sleep can be canceled by passing 0, NULL.
-    void scheduleSleep(uint32_t ms, char *cmd);
-
-  protected:
-    void checkStateChange();
-
-    void doSleep(int32_t ms);
-
-    bool sleepPending;
-    uint32_t sleepUntil;
-    char * postSleepCommand;
 };
 
 extern ApioGeneral General;

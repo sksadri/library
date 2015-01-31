@@ -71,7 +71,7 @@ class ApioDongle : public ApioClass {
     uint32_t power(int base, int esp);
 
     void xbeeSend(String deviceAddr, String content);
-    void lwmSend(String deviceAddr, String content);
+    void apioSend(String deviceAddr, String content);
 };
 
 extern ApioDongle Dongle;
